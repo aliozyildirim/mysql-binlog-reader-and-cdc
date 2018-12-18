@@ -47,21 +47,20 @@ def insert_database(sql, val):
 
 # Please look database.txt
 # Save update data sent to insert_database function
-def save_update_data(jsonRow):
+def save_update_data(jsonRow, log_file, log_pos):
     # Now date time
     str_now = time.strftime('%Y-%m-%d %H:%M:%S')
     data = json.loads(jsonRow)
-
     if data['type'] == "UpdateRowsEvent":
-        values = json.dumps(data['row']['after_values'], default=date_handler)
+        values = json.dumps(data['row']['after_values'], default=data_handler())
         if 'id' in data['row']['after_values']:
             value_id = data['row']['after_values']['id']
         else:
             value_id = 'Null'
-        before_values = json.dumps(data['row']['before_values'], default=date_handler)
+        before_values = json.dumps(data['row']['before_values'], default=data_handler)
         method = 'Update'
     elif data['type'] == "DeleteRowsEvent":
-        before_values = json.dumps(data['row']['values'], default=date_handler)
+        before_values = json.dumps(data['row']['values'], default=data_handler)
         if 'id' in data['row']['values']:
             value_id = data['row']['values']['id']
         else:
@@ -74,9 +73,8 @@ def save_update_data(jsonRow):
         before_values = None
         method = 'Insert'
 
-    sqlCdc = "INSERT INTO update_data (table_name, current_id, method, updated_at, inserted_at ,before_values, after_values, database_d) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    valCdc = (
-        str(data['table']), value_id, method, str_now, str_now, str(before_values), str(values), str(data['schema']))
+    sqlCdc = "INSERT INTO update_data (table_name, current_id, method, updated_at, inserted_at ,before_values, after_values, database_d, log_file, log_pos) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    valCdc = (str(data['table']), value_id, method, str_now, str_now, str(before_values), str(values), str(data['schema']), str(log_file), log_pos)
 
     insert_database(sqlCdc, valCdc)
 
@@ -89,16 +87,6 @@ def data_handler(obj):
         raise TypeError(
             "Unserializable object {} of type {}".format(obj, type(obj))
         )
-
-
-def save_last_pos(file, pos):
-    str_now = time.strftime('%Y-%m-%d %H:%M:%S')
-
-    sqlLog = "INSERT INTO mysql_bin_log_datas (log_file, log_pos, updated_at) VALUES (%s, %s, %s)"
-    valLog = (file, pos, str_now)
-
-    insert_database(sqlLog, valLog)
-
 
 def read_last_pos():
     try:
@@ -144,8 +132,7 @@ def main():
                 jsonRow = json.dumps(event, default=data_handler)
 
                 try:
-                    save_update_data(jsonRow)
-                    save_last_pos(stream.log_file, stream.log_pos)
+                    save_update_data(jsonRow, stream.log_file, stream.log_pos)
                 except Exception, e:
                     print e
 

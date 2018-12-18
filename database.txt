@@ -13,14 +13,6 @@ CREATE TABLE `update_data` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4048 DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE `mysql_bin_log_datas` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `log_file` varchar(255) DEFAULT NULL,
-  `log_pos` bigint(25) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4046 DEFAULT CHARSET=latin1;
-
 
 CREATE TABLE `update_test_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
