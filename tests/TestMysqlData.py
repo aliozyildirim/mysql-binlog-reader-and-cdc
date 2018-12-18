@@ -2,7 +2,7 @@ import unittest
 import time
 import json
 
-from myqlBinlogReader import insert_database, read_last_pos, save_update_data, data_handler
+from mysqlBinlogReader import insert_database, read_last_pos, save_update_data, data_handler
 
 
 class insertDatabaseTestCase(unittest.TestCase):
