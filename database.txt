@@ -1,0 +1,29 @@
+CREATE TABLE `update_data` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `method` varchar(255) DEFAULT NULL,
+  `database_d` varchar(255) DEFAULT NULL,
+  `table_name` varchar(255) DEFAULT NULL,
+  `current_id` int(11) DEFAULT NULL,
+  `before_values` text,
+  `after_values` text,
+  `updated_at` datetime DEFAULT NULL,
+  `inserted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `current_id` (`current_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4048 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `mysql_bin_log_datas` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `log_file` varchar(255) DEFAULT NULL,
+  `log_pos` bigint(25) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4046 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `update_test_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `test_data` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
