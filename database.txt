@@ -8,10 +8,11 @@ CREATE TABLE `update_data` (
   `after_values` text,
   `updated_at` datetime DEFAULT NULL,
   `inserted_at` datetime DEFAULT NULL,
+  `log_file` varchar(255) DEFAULT NULL,
+  `log_pos` int(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `current_id` (`current_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4048 DEFAULT CHARSET=latin1;
-
+) ENGINE=InnoDB AUTO_INCREMENT=5181 DEFAULT CHARSET=latin1;
 
 
 CREATE TABLE `update_test_data` (
