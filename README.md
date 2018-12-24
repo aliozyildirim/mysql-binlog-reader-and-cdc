@@ -12,7 +12,7 @@ binlog-format    = row<br>
 
 Very important for read, update and delete -- binlog-format = <b><i> row</i> </b>  
 
-#Starting Project
+# Starting Project
 
 - Mysql server settings,
 - Go to database.txt create table in your cdc database
