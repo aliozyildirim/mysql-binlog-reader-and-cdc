@@ -12,7 +12,13 @@ binlog-format    = row<br>
 
 Very important for read, update and delete -- binlog-format = <b><i> row</i> </b>  
 
+#Starting Project
 
+- Mysql server settings,
+- Go to database.txt create table in your cdc database
+- mysqlBinlogReader setup your db parameters, log and cdc
+- python mysqlBinlogReader 
+- Enjoy :)
 
 # Project Referenced By and Used
 
